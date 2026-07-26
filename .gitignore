@@ -1,3 +1,20 @@
+# Compiled class files
+*.class
+
+# Package files
+*.jar
+
+# IntelliJ specific
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Output folders
+out/
+build/
+target/
+
 # Created by https://www.toptal.com/developers/gitignore/api/linux,windows,intellij,maven,gradle
 # Edit at https://www.toptal.com/developers/gitignore?templates=linux,windows,intellij,maven,gradle
 
