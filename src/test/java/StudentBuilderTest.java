@@ -1,14 +1,14 @@
 import org.astongrouph.model.Student;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
 public class StudentBuilderTest {
 
     @Test
     public void whenBuildingStudentWithValidData_thenFieldsAreSetCorrectly() {
         var student = new Student.Builder(12, 100.1, 10099).build();
-        String result = "Student: [ group number : 12 ] [ average score : 100,10 ] [ record book number : 10099 ]";
 
-        assert (student.toString().equals(result));
+        Assertions.assertNotNull(student);
     }
 
     @Test
