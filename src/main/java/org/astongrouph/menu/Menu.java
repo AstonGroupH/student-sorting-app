@@ -58,5 +58,7 @@ public class Menu {
                 System.out.println("Введено некорректное действие.");
             }
         }
+
+        scanner.close();
     }
 }
