@@ -32,7 +32,8 @@ public class Menu {
         System.out.println("\t 2. Заполнить коллекцию данных.");
         System.out.println("\t 3. Задать размер коллекции.");
         System.out.println("\t 4. Задать поле сортировки коллекции.");
-        System.out.println("\t 5. Отсортировать коллекцию. ");
+        System.out.println("\t 5. Отсортировать коллекцию.");
+        System.out.println("\t 6. Показать информацию о коллекции.");
         System.out.println("\t 0. Выход.");
 
         System.out.print("\nВыберите действие: ");
@@ -52,6 +53,7 @@ public class Menu {
                     break;
                 }
 
+                System.out.println();
                 operations.doOperation(choice);
             }
             catch (Exception ex) {
