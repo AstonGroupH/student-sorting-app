@@ -2,6 +2,7 @@ package org.astongrouph.operations;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.astongrouph.model.Student;
 
 public class Operations {
 
@@ -55,8 +56,7 @@ abstract class OperationHandler {
 
     private OperationHandler nextHandler;
 
-    // tmp
-    protected static List<String> students;
+    protected static List<Student> students;
     protected static int collectionSize = 10;
 }
 
