@@ -10,7 +10,8 @@ public class Operations {
         handler.setNextHandler(new FillCollectionHandler()).
                 setNextHandler(new SetSizeCollectionHandler()).
                 setNextHandler(new SetFieldForSortHandler()).
-                setNextHandler(new SortCollectionHandler());
+                setNextHandler(new SortCollectionHandler()).
+                setNextHandler(new ShowInfoHandler());
     }
 
     public void doOperation(int op) throws ArrayIndexOutOfBoundsException {
@@ -21,11 +22,11 @@ public class Operations {
     private final ShowCollectionHandler handler;
 }
 
-enum OperationLevel { EXIT, SHOW_COLLECTION, FILL_COLLECTION, SET_SIZE_COLLECTION, SET_FILED_FOR_SORT, SORTING }
+enum OperationLevel { EXIT, SHOW_COLLECTION, FILL_COLLECTION, SET_SIZE_COLLECTION, SET_FILED_FOR_SORT, SORTING, SHOW_INFO }
 
 abstract class OperationHandler {
     public OperationHandler() {
-        students = new ArrayList<>(10);
+        students = new ArrayList<>(collectionSize);
     }
 
     public OperationHandler setNextHandler(OperationHandler handler) throws IllegalArgumentException {
@@ -56,6 +57,7 @@ abstract class OperationHandler {
 
     // tmp
     protected static List<String> students;
+    protected static int collectionSize = 10;
 }
 
 class ShowCollectionHandler extends OperationHandler {
@@ -90,7 +92,9 @@ class SetSizeCollectionHandler extends OperationHandler {
 
     @Override
     protected void processRequest() {
-        System.out.println("Set size collection students!");
+        ValidateInput inputInt = new ValidateInput();
+        collectionSize = inputInt.readInt("Задайте новый размер коллекции [1-100]: ", 1, 100);
+        System.out.println("Установлен новый размер коллекции: " + collectionSize);
     }
 }
 
@@ -115,5 +119,25 @@ class SortCollectionHandler extends OperationHandler {
     @Override
     protected void processRequest() {
         System.out.println("Sort collection students!");
+    }
+}
+
+class ShowInfoHandler extends OperationHandler {
+    @Override
+    protected boolean canHandle(OperationLevel level) {
+        return level == OperationLevel.SHOW_INFO;
+    }
+
+    @Override
+    protected void processRequest() {
+        System.out.println("Метод сортировки: Быстрая сортировка (Quick sort).");
+        System.out.println("Размер коллекции: " + collectionSize);
+
+        StringBuilder msg = new StringBuilder("Коллекция");
+        if (students == null) msg.append(" не заполнена.");
+        else msg.append(" заполнена.");
+        System.out.println(msg.toString());
+
+        System.out.println("Поле сортировки ... "); // дописать - задано или нет.
     }
 }
