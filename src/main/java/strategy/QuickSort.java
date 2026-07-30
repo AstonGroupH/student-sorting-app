@@ -1,0 +1,50 @@
+package strategy;
+
+import java.util.Comparator;
+import java.util.List;
+
+public class QuickSort<T> implements SortStrategy<T> {
+
+    @Override
+    public void sort(List<T> list, Comparator<T> comparator) {
+
+        if (list == null || list.isEmpty()) {
+            return;
+        }
+        recursiveQuickSort(list, 0, list.size() - 1, comparator);
+    }
+
+    // Рекурсивный вспомогательный метод
+    private void recursiveQuickSort(List<T> list, int low, int high, Comparator<T> comparator) {
+        if (low < high) {
+            // Находим индекс раздела
+            int partitionIndex = partition(list, low, high, comparator);
+            // Рекурсивно сортируем элементы до и после раздела
+            recursiveQuickSort(list, low, partitionIndex - 1, comparator);
+            recursiveQuickSort(list, partitionIndex + 1, high, comparator);
+        }
+    }
+
+    // Метод разбиения, который находит правильную позицию опорного элемента
+    private int partition(List<T> list, int low, int high, Comparator<T> comparator) {
+        // Выбираем опорный элемент (в этом случае — последний)
+        T pivot = list.get(high);
+        int i = low - 1;
+        // Итерируем по списку и перемещаем элементы меньше опорного в левую часть
+        for (int j = low; j < high; j++) {
+            if (comparator.compare(list.get(j), pivot) <= 0) {
+                i++;
+                // Меняем элементы
+                T temp = list.get(i);
+                list.set(i, list.get(j));
+                list.set(j, temp);
+            }
+        }
+        // Помещаем опорный элемент в правильную позицию
+        T temp = list.get(i + 1);
+        list.set(i + 1, list.get(high));
+        list.set(high, temp);
+
+        return i + 1;
+    }
+}
