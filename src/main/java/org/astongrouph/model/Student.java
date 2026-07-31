@@ -31,19 +31,7 @@ public final class Student {
             return this;
         }
 
-        public Student build() throws IllegalArgumentException {
-            if (groupNumber < 0) {
-                throw new IllegalArgumentException("group number must be > 0");
-            }
-
-            if (averageScore < 0.0) {
-                throw new IllegalArgumentException("average score must be > 0");
-            }
-
-            if (recordBookNumber < 0) {
-                throw new IllegalArgumentException("record book number must be > 0");
-            }
-
+        public Student build() {
             return new Student(this);
         }
 
