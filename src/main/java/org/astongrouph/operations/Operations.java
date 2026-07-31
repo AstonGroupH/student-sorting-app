@@ -26,10 +26,6 @@ public class Operations {
 enum OperationLevel { EXIT, SHOW_COLLECTION, FILL_COLLECTION, SET_SIZE_COLLECTION, SET_FILED_FOR_SORT, SORTING, SHOW_INFO }
 
 abstract class OperationHandler {
-    public OperationHandler() {
-        students = new ArrayList<>(collectionSize);
-    }
-
     public OperationHandler setNextHandler(OperationHandler handler) throws IllegalArgumentException {
         if (handler != null) {
             this.nextHandler = handler;
@@ -68,7 +64,21 @@ class ShowCollectionHandler extends OperationHandler {
 
     @Override
     protected void processRequest() {
-        System.out.println("Show collection students!");
+        if (students == null) {
+            System.out.println("Коллекция не заполнена");
+            return;
+        }
+
+        for (int index = 0; index < students.size(); index++) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append(String.format("[%d] Студент: ", index + 1));
+            msg.append(String.format("Номер группы: %d, ", students.get(index).getGroupNumber()));
+            msg.append(String.format("Средний балл: %.2f, ", students.get(index).getAverageScore()));
+            msg.append(String.format("Номер зачетной книжки: %d;", students.get(index).getRecordBookNumber()));
+
+            System.out.println(msg.toString());
+        }
     }
 }
 
@@ -95,6 +105,8 @@ class SetSizeCollectionHandler extends OperationHandler {
         ValidateInput inputInt = new ValidateInput();
         collectionSize = inputInt.readInt("Задайте новый размер коллекции [1-100]: ", 1, 100);
         System.out.println("Установлен новый размер коллекции: " + collectionSize);
+
+        students = null;
     }
 }
 
