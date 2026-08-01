@@ -1,3 +1,4 @@
+import org.astongrouph.collection.CustomArrayList;
 import org.astongrouph.csv.CSVFile;
 import org.astongrouph.model.Student;
 
@@ -11,9 +12,8 @@ import java.util.List;
 public class CSVFileTest {
     @Test
     public void writeAndReadCollectionToCSVFile() {
-        // tmp List<>
         final int size = 10;
-        List<Student> students = new ArrayList<>();
+        CustomArrayList<Student> students = new CustomArrayList<>();
         for (int i = 0; i < size; i++) {
             students.add(new Student.Builder( 12, 99.0, 1000 + i).build());
         }
@@ -22,7 +22,7 @@ public class CSVFileTest {
         CSVFile file = new CSVFile(name);
         file.writeToFle(students);
 
-        List<Student> readStudents = new ArrayList<>();
+        CustomArrayList<Student> readStudents = new CustomArrayList<>();
         file.readFromFile(readStudents);
 
         assert(students.equals(readStudents));

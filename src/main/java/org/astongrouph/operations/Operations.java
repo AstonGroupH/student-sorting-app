@@ -1,11 +1,10 @@
 package org.astongrouph.operations;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import org.astongrouph.csv.CSVFile;
 import org.astongrouph.model.Student;
+import org.astongrouph.collection.CustomArrayList;
 
 public class Operations {
 
@@ -15,8 +14,8 @@ public class Operations {
                 setNextHandler(new SetSizeCollectionHandler()).
                 setNextHandler(new SetFieldForSortHandler()).
                 setNextHandler(new SortCollectionHandler()).
-                setNextHandler(new ShowInfoHandler())
-                .setNextHandler(new WriteToCSVFileHandler());
+                setNextHandler(new ShowInfoHandler()).
+                setNextHandler(new WriteToCSVFileHandler());
     }
 
     public void doOperation(int op) throws ArrayIndexOutOfBoundsException {
@@ -57,7 +56,7 @@ abstract class OperationHandler {
 
     private OperationHandler nextHandler;
 
-    protected static List<Student> students;
+    protected static CustomArrayList<Student> students;
     protected static int collectionSize = 10;
 }
 
