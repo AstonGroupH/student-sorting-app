@@ -1,6 +1,6 @@
-import org.astongrouph.CustomArray.CustomArrayList;
 import org.astongrouph.DataProvider.FileDataProvider;
 import org.astongrouph.DataProvider.RandomDataProvider;
+import org.astongrouph.collection.CustomArrayList;
 import org.astongrouph.model.Student;
 import org.junit.jupiter.api.Test;
 
@@ -28,11 +28,13 @@ public class DataProviderTest {
         Path file = Files.createTempFile("students", ".txt");
 
         Files.writeString(file,
-                "101,85.5,123456\n" +
-                        "-5,90.0,123457\n" +
-                        "102,75.0,123458\n" +
-                        "103,150.0,123459\n" +
-                        "104,95.0,123460\n"
+                """
+                        101,85.5,123456
+                        -5,90.0,123457
+                        102,75.0,123458
+                        103,150.0,123459
+                        104,95.0,123460
+                        """
         );
 
         FileDataProvider provider =

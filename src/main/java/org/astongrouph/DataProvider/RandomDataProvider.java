@@ -1,6 +1,6 @@
 package org.astongrouph.DataProvider;
 
-import org.astongrouph.CustomArray.CustomArrayList;
+import org.astongrouph.collection.CustomArrayList;
 import org.astongrouph.model.Student;
 
 import java.util.Random;
@@ -21,8 +21,7 @@ public class RandomDataProvider implements DataProvider {
 
         CustomArrayList<Student> students = new CustomArrayList<>();
 
-        Stream.generate(this::generateStudent)
-                .limit(count)
+        Stream.generate(this::generateStudent).limit(count)
                 .forEach(students::add);
 
         return students;

@@ -1,8 +1,8 @@
 package org.astongrouph.DataProvider;
 
-import org.astongrouph.CustomArray.CustomArrayList;
 import org.astongrouph.Ecxeptions.InvalidStudentException;
 import org.astongrouph.Ecxeptions.StudentParseException;
+import org.astongrouph.collection.CustomArrayList;
 import org.astongrouph.model.Student;
 
 import java.io.IOException;
@@ -23,29 +23,24 @@ public class FileDataProvider implements DataProvider {
     @Override
     public CustomArrayList<Student> provide(int count) {
 
-        try {
+        CustomArrayList<Student> students = new CustomArrayList<>();
 
-            CustomArrayList<Student> students = new CustomArrayList<>();
+        try (Stream<String> lines = Files.lines(path)) {
 
-            Files.lines(path).forEach(line -> {
-                try {
-                    Student student = parser.parse(line);
-                    validator.validate(student);
-                    students.add(student);
-                } catch (StudentParseException | InvalidStudentException e) {
-                    System.out.println("Пропущена строка: " + e.getMessage());
-                }
-            });
+                lines.forEach(line -> {
+                    try {
+                        Student student = parser.parse(line);
+                        validator.validate(student);
 
-            return students;
-
+                        students.add(student);
+                    } catch (StudentParseException | InvalidStudentException e) {
+                            System.out.println("Пропущена строка: " + e.getMessage());
+                    }
+                });
 
         } catch (IOException e) {
-
-            throw new RuntimeException(
-                    "Ошибка чтения файла.",
-                    e
-            );
+                    throw new RuntimeException("Ошибка чтения файла.", e);
         }
+        return students;
     }
 }

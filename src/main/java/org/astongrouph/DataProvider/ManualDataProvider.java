@@ -1,7 +1,8 @@
 package org.astongrouph.DataProvider;
 
-import org.astongrouph.CustomArray.CustomArrayList;
+import org.astongrouph.Ecxeptions.InvalidStudentException;
 import org.astongrouph.Ecxeptions.StudentParseException;
+import org.astongrouph.collection.CustomArrayList;
 import org.astongrouph.model.Student;
 
 import java.util.Scanner;
@@ -16,6 +17,7 @@ public class ManualDataProvider implements DataProvider {
         this.scanner = scanner;
     }
 
+
     @Override
     public CustomArrayList<Student> provide(int count) {
 
@@ -29,11 +31,14 @@ public class ManualDataProvider implements DataProvider {
 
             try {
                 Student student = parser.parse(line);
+                validator.validate(student);
                 students.add(student);
 
             } catch (StudentParseException e) {
                 System.out.println("Ошибка: " + e.getMessage());
                 System.out.println("Попробуйте ещё раз.");
+            } catch (InvalidStudentException e) {
+                System.out.println("Ошибка: " + e.getMessage());
             }
 
         }
