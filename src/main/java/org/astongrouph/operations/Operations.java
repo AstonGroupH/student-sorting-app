@@ -2,6 +2,9 @@ package org.astongrouph.operations;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+
+import org.astongrouph.csv.CSVFile;
 import org.astongrouph.model.Student;
 
 public class Operations {
@@ -12,7 +15,8 @@ public class Operations {
                 setNextHandler(new SetSizeCollectionHandler()).
                 setNextHandler(new SetFieldForSortHandler()).
                 setNextHandler(new SortCollectionHandler()).
-                setNextHandler(new ShowInfoHandler());
+                setNextHandler(new ShowInfoHandler())
+                .setNextHandler(new WriteToCSVFileHandler());
     }
 
     public void doOperation(int op) throws ArrayIndexOutOfBoundsException {
@@ -23,7 +27,8 @@ public class Operations {
     private final ShowCollectionHandler handler;
 }
 
-enum OperationLevel { EXIT, SHOW_COLLECTION, FILL_COLLECTION, SET_SIZE_COLLECTION, SET_FILED_FOR_SORT, SORTING, SHOW_INFO }
+enum OperationLevel { EXIT, SHOW_COLLECTION, FILL_COLLECTION, SET_SIZE_COLLECTION,
+    SET_FILED_FOR_SORT, SORTING, SHOW_INFO, WRITE_TO_CSV_FILE }
 
 abstract class OperationHandler {
     public OperationHandler setNextHandler(OperationHandler handler) throws IllegalArgumentException {
@@ -32,7 +37,7 @@ abstract class OperationHandler {
             return nextHandler;
         }
         else
-            throw new IllegalArgumentException("Невалидный handler: " + String.valueOf((Object) null));
+            throw new IllegalArgumentException("Invalid handler: " + String.valueOf((Object) null));
     }
 
     public void handleRequest(OperationLevel level) {
@@ -43,7 +48,7 @@ abstract class OperationHandler {
         }
         else {
             System.out.print("\t");
-            System.out.println("Не могу обработать запрос." + level);
+            System.out.println("Can't process the request: " + level);
         }
     }
 
@@ -151,5 +156,39 @@ class ShowInfoHandler extends OperationHandler {
         System.out.println(msg.toString());
 
         System.out.println("Поле сортировки ... "); // дописать - задано или нет.
+    }
+}
+
+class WriteToCSVFileHandler extends OperationHandler {
+    @Override
+    protected boolean canHandle(OperationLevel level) {
+        return level == OperationLevel.WRITE_TO_CSV_FILE;
+    }
+
+    @Override
+    protected void processRequest() {
+        if (students == null) {
+            System.out.println("Заполните коллекцию, чтобы записать ее в файл.");
+            return;
+        }
+
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.print("Укажите имя файла [example.csv]: ");
+            String name = scanner.nextLine();
+
+            if (name.isEmpty()) {
+                name = "example.csv";
+            }
+
+            try {
+                CSVFile file = new CSVFile(name);
+                file.writeToFle(students);
+                break;
+            }
+            catch (IllegalArgumentException e) {
+                System.out.println("Неверно задано имя файла для записи.");
+            }
+        }
     }
 }
