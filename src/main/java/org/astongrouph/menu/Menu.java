@@ -34,6 +34,7 @@ public class Menu {
         System.out.println("\t 4. Задать поле сортировки коллекции.");
         System.out.println("\t 5. Отсортировать коллекцию.");
         System.out.println("\t 6. Показать информацию о коллекции.");
+        System.out.println("\t 7. Записать коллекцию в файл.");
         System.out.println("\t 0. Выход.");
 
         System.out.print("\nВыберите действие: ");
