@@ -1,7 +1,6 @@
 package org.astongrouph.DataProvider;
 
 import org.astongrouph.CustomArray.CustomArrayList;
-import org.astongrouph.CustomArray.CustomArrayListCollector;
 import org.astongrouph.Ecxeptions.InvalidStudentException;
 import org.astongrouph.Ecxeptions.StudentParseException;
 import org.astongrouph.model.Student;
@@ -13,28 +12,32 @@ import java.util.stream.Stream;
 
 public class FileDataProvider implements DataProvider {
 
-        private final Path path;
-        private final StudentParser parser = new StudentParser();
-        private final StudentValidator validator = new StudentValidator();
+    private final Path path;
+    private final StudentParser parser = new StudentParser();
+    private final StudentValidator validator = new StudentValidator();
 
-        public FileDataProvider(Path path) {
-            this.path = path;
-        }
+    public FileDataProvider(Path path) {
+        this.path = path;
+    }
 
     @Override
     public CustomArrayList<Student> provide(int count) {
 
         try {
 
-            return Files.lines(path)
+            CustomArrayList<Student> students = new CustomArrayList<>();
 
-                    .map(this::parseAndValidate)
+            Files.lines(path).forEach(line -> {
+                try {
+                    Student student = parser.parse(line);
+                    validator.validate(student);
+                    students.add(student);
+                } catch (StudentParseException | InvalidStudentException e) {
+                    System.out.println("Пропущена строка: " + e.getMessage());
+                }
+            });
 
-                    .flatMap(student -> student)
-
-                    .limit(count)
-
-                    .collect(CustomArrayListCollector.toCustomArrayList());
+            return students;
 
 
         } catch (IOException e) {
@@ -43,34 +46,6 @@ public class FileDataProvider implements DataProvider {
                     "Ошибка чтения файла.",
                     e
             );
-        }
-    }
-
-
-    private Stream<Student> parseAndValidate(String line) {
-
-        try {
-
-            Student student = parser.parse(line);
-
-            validator.validate(student);
-
-            return Stream.of(student);
-
-        } catch (StudentParseException e) {
-
-            System.out.println(
-                    "Пропущена запись: " + e.getMessage()
-            );
-
-            return Stream.empty();
-
-        } catch (InvalidStudentException e) {
-            System.out.println(
-                    e.getMessage()
-            );
-
-            return Stream.empty();
         }
     }
 }

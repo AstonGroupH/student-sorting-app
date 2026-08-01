@@ -1,13 +1,10 @@
 package org.astongrouph.DataProvider;
 
 import org.astongrouph.CustomArray.CustomArrayList;
-import org.astongrouph.CustomArray.CustomArrayListCollector;
-import org.astongrouph.Ecxeptions.InvalidStudentException;
 import org.astongrouph.Ecxeptions.StudentParseException;
 import org.astongrouph.model.Student;
 
 import java.util.Scanner;
-import java.util.stream.IntStream;
 
 public class ManualDataProvider implements DataProvider {
 
@@ -22,36 +19,25 @@ public class ManualDataProvider implements DataProvider {
     @Override
     public CustomArrayList<Student> provide(int count) {
 
-        return IntStream.range(0, count)
-                .mapToObj(i -> readStudent())
-                .collect(CustomArrayListCollector.toCustomArrayList());
-    }
+        CustomArrayList<Student> students = new CustomArrayList<>();
 
-    private Student readStudent() {
+        while (students.size() < count) {
 
-        while (true) {
-
-            System.out.println(
-                    "Введите данные: группа,средний балл,номер зачётки"
-            );
-
-            String input = scanner.nextLine();
+            System.out.println("Введите данные студентов.");
+            System.out.println("Формат: номерГруппы,среднийБалл,номерЗачетки");
+            String line = scanner.nextLine();
 
             try {
+                Student student = parser.parse(line);
+                students.add(student);
 
-                Student student = parser.parse(input);
-
-                validator.validate(student);
-
-                return student;
-
-            } catch (StudentParseException |
-                     InvalidStudentException e) {
-
-                System.out.println(
-                        "Ошибка: " + e.getMessage()
-                );
+            } catch (StudentParseException e) {
+                System.out.println("Ошибка: " + e.getMessage());
+                System.out.println("Попробуйте ещё раз.");
             }
+
         }
+
+        return students;
     }
 }
