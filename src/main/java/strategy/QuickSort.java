@@ -34,17 +34,17 @@ public class QuickSort<T> implements SortStrategy<T> {
         for (int j = low; j < high; j++) {
             if (comparator.compare(list.get(j), pivot) <= 0) {
                 i++;
-                // Меняем элементы
-                T temp = list.get(i);
-                list.set(i, list.get(j));
-                list.set(j, temp);
+                swap(list, i, j);
             }
         }
-        // Помещаем опорный элемент в правильную позицию
-        T temp = list.get(i + 1);
-        list.set(i + 1, list.get(high));
-        list.set(high, temp);
+        swap(list, i + 1, high);
 
         return i + 1;
+    }
+
+    private void swap(List<T> list, int i, int j) {
+        T temp = list.get(i);
+        list.set(i, list.get(j));
+        list.set(j, temp);
     }
 }
