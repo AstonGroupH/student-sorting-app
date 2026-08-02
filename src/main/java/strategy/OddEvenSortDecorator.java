@@ -1,9 +1,9 @@
 package strategy;
 
 
-import java.util.ArrayList;
+import org.astongrouph.collection.CustomArrayList;
+
 import java.util.Comparator;
-import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
 
@@ -18,10 +18,10 @@ public class OddEvenSortDecorator<T> implements SortStrategy<T> {
     }
 
     @Override
-    public void sort(List<T> list, Comparator<T> comparator) {
+    public void sort(CustomArrayList<T> list, Comparator<T> comparator) {
         if (list == null || list.isEmpty()) return;
 
-        List<T> evenElements = new ArrayList<>();
+        CustomArrayList<T> evenElements = new CustomArrayList<>();
         for (T element : list) {
             Integer number = numberExtractor.apply(element);
             if (number != null && number % 2 == 0) {

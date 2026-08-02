@@ -1,8 +1,9 @@
 package strategy;
 
+import org.astongrouph.collection.CustomArrayList;
+
 import java.util.Comparator;
-import java.util.List;
 
 public interface SortStrategy<T> {
-    void sort(List<T> list, Comparator<T> comparator);
+    void sort(CustomArrayList<T> list, Comparator<T> comparator);
 }

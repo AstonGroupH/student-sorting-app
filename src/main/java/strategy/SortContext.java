@@ -1,7 +1,8 @@
 package strategy;
 
+import org.astongrouph.collection.CustomArrayList;
+
 import java.util.Comparator;
-import java.util.List;
 import java.util.function.Function;
 
 public class SortContext<T> {
@@ -15,7 +16,7 @@ public class SortContext<T> {
     /**
      * Базовая сортировка списка.
      */
-    public void executeSort(List<T> list, Comparator<T> comparator) {
+    public void executeSort(CustomArrayList<T> list, Comparator<T> comparator) {
         System.out.println("Сортировка: QuickSort");
         long startTime = System.currentTimeMillis();
         strategy.sort(list, comparator);
@@ -26,7 +27,7 @@ public class SortContext<T> {
     /**
      * Сортировка только чётных элементов по извлечённому числу.
      */
-    public void executeSortEvenOnly(List<T> list, Comparator<T> comparator, Function<T, Integer> numberExtractor) {
+    public void executeSortEvenOnly(CustomArrayList<T> list, Comparator<T> comparator, Function<T, Integer> numberExtractor) {
         System.out.println("Сортировка (четные/нечетные): QuickSort");
         long startTime = System.currentTimeMillis();
 

@@ -1,12 +1,13 @@
 package strategy;
 
+import org.astongrouph.collection.CustomArrayList;
+
 import java.util.Comparator;
-import java.util.List;
 
 public class QuickSort<T> implements SortStrategy<T> {
 
     @Override
-    public void sort(List<T> list, Comparator<T> comparator) {
+    public void sort(CustomArrayList<T> list, Comparator<T> comparator) {
 
         if (list == null || list.isEmpty()) {
             return;
@@ -15,7 +16,7 @@ public class QuickSort<T> implements SortStrategy<T> {
     }
 
     // Рекурсивный вспомогательный метод
-    private void recursiveQuickSort(List<T> list, int low, int high, Comparator<T> comparator) {
+    private void recursiveQuickSort(CustomArrayList<T> list, int low, int high, Comparator<T> comparator) {
         if (low < high) {
             // Находим индекс раздела
             int partitionIndex = partition(list, low, high, comparator);
@@ -26,7 +27,7 @@ public class QuickSort<T> implements SortStrategy<T> {
     }
 
     // Метод разбиения, который находит правильную позицию опорного элемента
-    private int partition(List<T> list, int low, int high, Comparator<T> comparator) {
+    private int partition(CustomArrayList<T> list, int low, int high, Comparator<T> comparator) {
         // Выбираем опорный элемент (в этом случае — последний)
         T pivot = list.get(high);
         int i = low - 1;
@@ -42,7 +43,7 @@ public class QuickSort<T> implements SortStrategy<T> {
         return i + 1;
     }
 
-    private void swap(List<T> list, int i, int j) {
+    private void swap(CustomArrayList<T> list, int i, int j) {
         T temp = list.get(i);
         list.set(i, list.get(j));
         list.set(j, temp);
