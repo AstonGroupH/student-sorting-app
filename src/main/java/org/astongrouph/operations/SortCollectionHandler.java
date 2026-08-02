@@ -12,7 +12,7 @@ class SortCollectionHandler extends OperationHandler {
 
     @Override
     protected void processRequest() {
-        if (students == null || students.isEmpty()) {
+        if (OperationHandler.collectionIsEmpty()) {
             System.out.println("Для сортировки заполните коллекцию.");
             return;
         }

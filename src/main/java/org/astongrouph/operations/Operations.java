@@ -18,7 +18,8 @@ public class Operations {
                 setNextHandler(new SetFieldForSortHandler()).
                 setNextHandler(new SortCollectionHandler()).
                 setNextHandler(new ShowInfoHandler()).
-                setNextHandler(new WriteToCSVFileHandler());
+                setNextHandler(new WriteToCSVFileHandler()).
+                setNextHandler(new OddEvenSortCollectionHandler());
 
         OperationHandler.setScanner(scanner);
     }
@@ -32,7 +33,7 @@ public class Operations {
 }
 
 enum OperationLevel { EXIT, SHOW_COLLECTION, FILL_COLLECTION, SET_SIZE_COLLECTION,
-    SET_FILED_FOR_SORT, SORTING, SHOW_INFO, WRITE_TO_CSV_FILE }
+    SET_FILED_FOR_SORT, SORTING, SHOW_INFO, WRITE_TO_CSV_FILE, SORTING_ODD_EVEN}
 
 abstract class OperationHandler {
     public OperationHandler setNextHandler(OperationHandler handler) throws IllegalArgumentException {
@@ -57,12 +58,15 @@ abstract class OperationHandler {
     }
 
     public static void setScanner(Scanner sc) { scanner = sc; }
-
     protected static String getComparatorName() {
         if (comparator instanceof GroupNumberComparator) return "Номер группы";
         if (comparator instanceof AverageScoreComparator) return "Средний балл";
         if (comparator instanceof RecordBookNumberComparator) return "Номер зачетной книжки";
         return "Не задано";
+    }
+
+    protected static boolean collectionIsEmpty() {
+        return students == null || students.isEmpty();
     }
 
     protected abstract boolean canHandle(OperationLevel level);
