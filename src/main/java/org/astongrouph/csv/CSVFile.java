@@ -1,11 +1,12 @@
 package org.astongrouph.csv;
 
 import org.astongrouph.model.Student;
+import org.astongrouph.collection.CustomArrayList;
 
 import java.io.*;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.List; // tmp
+import java.util.List;
 
 public class CSVFile {
     public CSVFile(String name) throws IllegalArgumentException {
@@ -15,8 +16,7 @@ public class CSVFile {
         this.name = name;
     }
 
-    // List<> - tmp
-    public void writeToFle(List<Student> data) throws IllegalArgumentException {
+    public void writeToFle(CustomArrayList<Student> data) throws IllegalArgumentException {
         if (data == null || data.isEmpty())
             throw new IllegalArgumentException("writeToFile: collections is null or is empty!");
 
@@ -34,7 +34,7 @@ public class CSVFile {
         }
     }
 
-    public void readFromFile(List<Student> data) throws IllegalArgumentException {
+    public void readFromFile(CustomArrayList<Student> data) throws IllegalArgumentException {
         if (data == null)
             throw new IllegalArgumentException("writeToFile: collections is null!");
 

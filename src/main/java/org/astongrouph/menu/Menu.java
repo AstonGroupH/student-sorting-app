@@ -10,7 +10,7 @@ public class Menu {
 
     public Menu() {
         scanner = new Scanner(System.in);
-        operations = new Operations();
+        operations = new Operations(scanner);
     }
 
     public void show() {

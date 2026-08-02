@@ -1,22 +1,22 @@
 package org.astongrouph.operations;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
-import org.astongrouph.csv.CSVFile;
 import org.astongrouph.model.Student;
+import org.astongrouph.collection.CustomArrayList;
 
 public class Operations {
 
-    public Operations() {
+    public Operations(Scanner scanner) {
         handler = new ShowCollectionHandler();
         handler.setNextHandler(new FillCollectionHandler()).
                 setNextHandler(new SetSizeCollectionHandler()).
                 setNextHandler(new SetFieldForSortHandler()).
                 setNextHandler(new SortCollectionHandler()).
-                setNextHandler(new ShowInfoHandler())
-                .setNextHandler(new WriteToCSVFileHandler());
+                setNextHandler(new ShowInfoHandler()).
+                setNextHandler(new WriteToCSVFileHandler());
+
+        OperationHandler.setScanner(scanner);
     }
 
     public void doOperation(int op) throws ArrayIndexOutOfBoundsException {
@@ -52,67 +52,16 @@ abstract class OperationHandler {
         }
     }
 
+    public static void setScanner(Scanner sc) { scanner = sc; }
+
     protected abstract boolean canHandle(OperationLevel level);
     protected abstract void processRequest();
 
     private OperationHandler nextHandler;
 
-    protected static List<Student> students;
+    protected static CustomArrayList<Student> students;
     protected static int collectionSize = 10;
-}
-
-class ShowCollectionHandler extends OperationHandler {
-    @Override
-    protected boolean canHandle(OperationLevel level) {
-        return level == OperationLevel.SHOW_COLLECTION;
-    }
-
-    @Override
-    protected void processRequest() {
-        if (students == null) {
-            System.out.println("Коллекция не заполнена");
-            return;
-        }
-
-        for (int index = 0; index < students.size(); index++) {
-            StringBuilder msg = new StringBuilder();
-
-            msg.append(String.format("[%d] Студент: ", index + 1));
-            msg.append(String.format("Номер группы: %d, ", students.get(index).getGroupNumber()));
-            msg.append(String.format("Средний балл: %.2f, ", students.get(index).getAverageScore()));
-            msg.append(String.format("Номер зачетной книжки: %d;", students.get(index).getRecordBookNumber()));
-
-            System.out.println(msg.toString());
-        }
-    }
-}
-
-class FillCollectionHandler extends OperationHandler {
-    @Override
-    protected boolean canHandle(OperationLevel level) {
-        return level == OperationLevel.FILL_COLLECTION;
-    }
-
-    @Override
-    protected void processRequest() {
-        System.out.println("Fill collection students!");
-    }
-}
-
-class SetSizeCollectionHandler extends OperationHandler {
-    @Override
-    protected boolean canHandle(OperationLevel level) {
-        return level == OperationLevel.SET_SIZE_COLLECTION;
-    }
-
-    @Override
-    protected void processRequest() {
-        ValidateInput inputInt = new ValidateInput();
-        collectionSize = inputInt.readInt("Задайте новый размер коллекции [1-100]: ", 1, 100);
-        System.out.println("Установлен новый размер коллекции: " + collectionSize);
-
-        students = null;
-    }
+    protected static Scanner scanner;
 }
 
 class SetFieldForSortHandler extends OperationHandler {
@@ -136,59 +85,5 @@ class SortCollectionHandler extends OperationHandler {
     @Override
     protected void processRequest() {
         System.out.println("Sort collection students!");
-    }
-}
-
-class ShowInfoHandler extends OperationHandler {
-    @Override
-    protected boolean canHandle(OperationLevel level) {
-        return level == OperationLevel.SHOW_INFO;
-    }
-
-    @Override
-    protected void processRequest() {
-        System.out.println("Метод сортировки: Быстрая сортировка (Quick sort).");
-        System.out.println("Размер коллекции: " + collectionSize);
-
-        StringBuilder msg = new StringBuilder("Коллекция");
-        if (students == null) msg.append(" не заполнена.");
-        else msg.append(" заполнена.");
-        System.out.println(msg.toString());
-
-        System.out.println("Поле сортировки ... "); // дописать - задано или нет.
-    }
-}
-
-class WriteToCSVFileHandler extends OperationHandler {
-    @Override
-    protected boolean canHandle(OperationLevel level) {
-        return level == OperationLevel.WRITE_TO_CSV_FILE;
-    }
-
-    @Override
-    protected void processRequest() {
-        if (students == null) {
-            System.out.println("Заполните коллекцию, чтобы записать ее в файл.");
-            return;
-        }
-
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            System.out.print("Укажите имя файла [example.csv]: ");
-            String name = scanner.nextLine();
-
-            if (name.isEmpty()) {
-                name = "example.csv";
-            }
-
-            try {
-                CSVFile file = new CSVFile(name);
-                file.writeToFle(students);
-                break;
-            }
-            catch (IllegalArgumentException e) {
-                System.out.println("Неверно задано имя файла для записи.");
-            }
-        }
     }
 }
