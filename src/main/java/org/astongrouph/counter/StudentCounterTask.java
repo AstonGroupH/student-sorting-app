@@ -31,14 +31,6 @@ public class StudentCounterTask implements Runnable {
                 result++;
             }
         }
-
-        System.out.println(
-                Thread.currentThread().getName()
-                        + " считает участок "
-                        + from + "-" + to
-                        + " результат: "
-                        + result
-        );
     }
 
 
