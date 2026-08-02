@@ -1,7 +1,11 @@
 package org.astongrouph.operations;
 
+import java.util.Comparator;
 import java.util.Scanner;
 
+import org.astongrouph.comparator.AverageScoreComparator;
+import org.astongrouph.comparator.GroupNumberComparator;
+import org.astongrouph.comparator.RecordBookNumberComparator;
 import org.astongrouph.model.Student;
 import org.astongrouph.collection.CustomArrayList;
 
@@ -54,6 +58,13 @@ abstract class OperationHandler {
 
     public static void setScanner(Scanner sc) { scanner = sc; }
 
+    protected static String getComparatorName() {
+        if (comparator instanceof GroupNumberComparator) return "Номер группы";
+        if (comparator instanceof AverageScoreComparator) return "Средний балл";
+        if (comparator instanceof RecordBookNumberComparator) return "Номер зачетной книжки";
+        return "Не задано";
+    }
+
     protected abstract boolean canHandle(OperationLevel level);
     protected abstract void processRequest();
 
@@ -62,28 +73,5 @@ abstract class OperationHandler {
     protected static CustomArrayList<Student> students;
     protected static int collectionSize = 10;
     protected static Scanner scanner;
-}
-
-class SetFieldForSortHandler extends OperationHandler {
-    @Override
-    protected boolean canHandle(OperationLevel level) {
-        return level == OperationLevel.SET_FILED_FOR_SORT;
-    }
-
-    @Override
-    protected void processRequest() {
-        System.out.println("Set field for sort collection students!");
-    }
-}
-
-class SortCollectionHandler extends OperationHandler {
-    @Override
-    protected boolean canHandle(OperationLevel level) {
-        return level == OperationLevel.SORTING;
-    }
-
-    @Override
-    protected void processRequest() {
-        System.out.println("Sort collection students!");
-    }
+    protected static Comparator<Student> comparator;
 }
