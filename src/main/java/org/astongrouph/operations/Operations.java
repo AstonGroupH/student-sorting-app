@@ -8,7 +8,7 @@ import org.astongrouph.collection.CustomArrayList;
 
 public class Operations {
 
-    public Operations() {
+    public Operations(Scanner scanner) {
         handler = new ShowCollectionHandler();
         handler.setNextHandler(new FillCollectionHandler()).
                 setNextHandler(new SetSizeCollectionHandler()).
@@ -16,6 +16,8 @@ public class Operations {
                 setNextHandler(new SortCollectionHandler()).
                 setNextHandler(new ShowInfoHandler()).
                 setNextHandler(new WriteToCSVFileHandler());
+
+        OperationHandler.setScanner(scanner);
     }
 
     public void doOperation(int op) throws ArrayIndexOutOfBoundsException {
@@ -51,6 +53,8 @@ abstract class OperationHandler {
         }
     }
 
+    public static void setScanner(Scanner sc) { scanner = sc; }
+
     protected abstract boolean canHandle(OperationLevel level);
     protected abstract void processRequest();
 
@@ -58,44 +62,7 @@ abstract class OperationHandler {
 
     protected static CustomArrayList<Student> students;
     protected static int collectionSize = 10;
-}
-
-class ShowCollectionHandler extends OperationHandler {
-    @Override
-    protected boolean canHandle(OperationLevel level) {
-        return level == OperationLevel.SHOW_COLLECTION;
-    }
-
-    @Override
-    protected void processRequest() {
-        if (students == null) {
-            System.out.println("Коллекция не заполнена");
-            return;
-        }
-
-        for (int index = 0; index < students.size(); index++) {
-            StringBuilder msg = new StringBuilder();
-
-            msg.append(String.format("[%d] Студент: ", index + 1));
-            msg.append(String.format("Номер группы: %d, ", students.get(index).getGroupNumber()));
-            msg.append(String.format("Средний балл: %.2f, ", students.get(index).getAverageScore()));
-            msg.append(String.format("Номер зачетной книжки: %d;", students.get(index).getRecordBookNumber()));
-
-            System.out.println(msg.toString());
-        }
-    }
-}
-
-class FillCollectionHandler extends OperationHandler {
-    @Override
-    protected boolean canHandle(OperationLevel level) {
-        return level == OperationLevel.FILL_COLLECTION;
-    }
-
-    @Override
-    protected void processRequest() {
-        System.out.println("Fill collection students!");
-    }
+    protected static Scanner scanner;
 }
 
 class SetSizeCollectionHandler extends OperationHandler {
@@ -171,7 +138,6 @@ class WriteToCSVFileHandler extends OperationHandler {
             return;
         }
 
-        Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.print("Укажите имя файла [example.csv]: ");
             String name = scanner.nextLine();
