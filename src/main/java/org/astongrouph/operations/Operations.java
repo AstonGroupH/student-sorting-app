@@ -2,7 +2,6 @@ package org.astongrouph.operations;
 
 import java.util.Scanner;
 
-import org.astongrouph.csv.CSVFile;
 import org.astongrouph.model.Student;
 import org.astongrouph.collection.CustomArrayList;
 
@@ -86,38 +85,5 @@ class SortCollectionHandler extends OperationHandler {
     @Override
     protected void processRequest() {
         System.out.println("Sort collection students!");
-    }
-}
-
-class WriteToCSVFileHandler extends OperationHandler {
-    @Override
-    protected boolean canHandle(OperationLevel level) {
-        return level == OperationLevel.WRITE_TO_CSV_FILE;
-    }
-
-    @Override
-    protected void processRequest() {
-        if (students == null) {
-            System.out.println("Заполните коллекцию, чтобы записать ее в файл.");
-            return;
-        }
-
-        while (true) {
-            System.out.print("Укажите имя файла [example.csv]: ");
-            String name = scanner.nextLine();
-
-            if (name.isEmpty()) {
-                name = "example.csv";
-            }
-
-            try {
-                CSVFile file = new CSVFile(name);
-                file.writeToFle(students);
-                break;
-            }
-            catch (IllegalArgumentException e) {
-                System.out.println("Неверно задано имя файла для записи.");
-            }
-        }
     }
 }
