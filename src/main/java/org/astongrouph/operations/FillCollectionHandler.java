@@ -3,13 +3,10 @@ package org.astongrouph.operations;
 import org.astongrouph.DataProvider.FileDataProvider;
 import org.astongrouph.DataProvider.ManualDataProvider;
 import org.astongrouph.DataProvider.RandomDataProvider;
-import org.astongrouph.collection.CustomArrayList;
-import org.astongrouph.model.Student;
 
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Scanner;
 
 class FillCollectionHandler extends OperationHandler {
     @Override
