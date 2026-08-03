@@ -10,7 +10,7 @@ import java.util.Comparator;
 import java.util.Scanner;
 
 enum OperationLevel { EXIT, SHOW_COLLECTION, FILL_COLLECTION, SET_SIZE_COLLECTION,
-    SET_FILED_FOR_SORT, SORTING, SHOW_INFO, WRITE_TO_CSV_FILE, SORTING_ODD_EVEN}
+    SET_FILED_FOR_SORT, SORTING, SHOW_INFO, WRITE_TO_CSV_FILE, SORTING_ODD_EVEN, COUNT_OCCURRENCES}
 
 abstract class OperationHandler {
     public OperationHandler setNextHandler(OperationHandler handler) throws IllegalArgumentException {

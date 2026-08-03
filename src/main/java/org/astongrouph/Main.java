@@ -1,5 +1,4 @@
 package org.astongrouph;
-
 import org.astongrouph.menu.Menu;
 
 public class Main {
