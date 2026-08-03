@@ -48,7 +48,7 @@ public class StrategyTest {
     }
 
     @Test
-    @DisplayName("OddEvenSortDecorator должен сортировать студентов с чётным recordBookNumber по среднему баллу")
+    @DisplayName("OddEvenSortDecorator должен сортировать студентов с чётным средним баллом")
     void oddEvenDecoratorShouldSortStudentsWithEvenRecordBookByAverageScore() {
         CustomArrayList<Student> students = new CustomArrayList<>();
         students.add(new Student.Builder(101, 4.5, 1002).build());
@@ -58,7 +58,7 @@ public class StrategyTest {
         students.add(new Student.Builder(102, 4.8, 1006).build());
         students.add(new Student.Builder(101, 3.5, 1005).build());
 
-        System.out.println("Тест: Сортировка студентов с чётным recordBookNumber по среднему баллу");
+        System.out.println("Тест: Сортировка студентов с чётным  средним балом");
         System.out.println("До: " + students);
 
         CustomArrayList<Student> expected = new CustomArrayList<>();
