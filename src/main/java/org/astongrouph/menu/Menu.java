@@ -3,6 +3,8 @@ package org.astongrouph.menu;
 import java.util.Scanner;
 import org.astongrouph.operations.Operations;
 
+import static java.lang.System.exit;
+
 public class Menu {
     private final Scanner scanner;
     private final int count = 40;
@@ -61,6 +63,7 @@ public class Menu {
             }
             catch (Exception ex) {
                 System.out.println("Введено некорректное действие.");
+                exit(1);
             }
         }
 
