@@ -16,6 +16,6 @@ class ShowInfoHandler extends OperationHandler {
         else msg.append(" заполнена.");
         System.out.println(msg.toString());
 
-        System.out.println("Поле сортировки ... "); // дописать - задано или нет.
+        System.out.println("Поле сортировки: " + OperationHandler.getComparatorName());
     }
 }
