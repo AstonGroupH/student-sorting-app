@@ -12,7 +12,9 @@ public class Operations {
                 setNextHandler(new SortCollectionHandler()).
                 setNextHandler(new ShowInfoHandler()).
                 setNextHandler(new WriteToCSVFileHandler()).
-                setNextHandler(new OddEvenSortCollectionHandler());
+                setNextHandler(new OddEvenSortCollectionHandler()).
+                setNextHandler(new CountOccurrencesHandler());
+
 
         OperationHandler.setScanner(scanner);
     }
