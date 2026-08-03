@@ -9,8 +9,6 @@ import java.util.Scanner;
 
 public class CountOccurrencesHandler extends OperationHandler {
 
-    private final Scanner scanner = new Scanner(System.in);
-
     @Override
     protected boolean canHandle(OperationLevel level) {
         return level == OperationLevel.COUNT_OCCURRENCES;
