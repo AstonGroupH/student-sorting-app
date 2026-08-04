@@ -1,4 +1,4 @@
-package org.astongrouph.strategy;
+package strategy;
 
 import org.astongrouph.collection.CustomArrayList;
 
