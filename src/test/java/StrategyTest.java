@@ -2,9 +2,9 @@ import org.astongrouph.collection.CustomArrayList;
 import org.astongrouph.model.Student;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import strategy.OddEvenSortDecorator;
-import strategy.QuickSort;
-import strategy.SortStrategy;
+import org.astongrouph.strategy.OddEvenSortDecorator;
+import org.astongrouph.strategy.QuickSort;
+import org.astongrouph.strategy.SortStrategy;
 
 import java.util.Comparator;
 import java.util.function.Function;
