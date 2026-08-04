@@ -23,14 +23,14 @@ class FillCollectionHandler extends OperationHandler {
         int choice = input.readInt("Введите способ заполнения: ", 0, 3);
 
         if (choice == 0) return;
-        if (choice == 1) fillFromFile();
+        if (choice == 1) if (!fillFromFile()) return;
         if (choice == 2) fillRandom();
         if (choice == 3) fillManual();
 
         System.out.println("Коллекция заполнена");
     }
 
-    protected void fillFromFile() {
+    protected boolean fillFromFile() {
         System.out.print("Укажите имя файла [example.csv]: ");
         String name = scanner.nextLine();
 
@@ -41,12 +41,14 @@ class FillCollectionHandler extends OperationHandler {
         File file = new File(name);
         if(!file.exists()) {
             System.out.println("Файл не найден: " + file.getAbsolutePath());
-            return;
+            return false;
         }
 
         Path path = Paths.get(name);
         FileDataProvider provider = new FileDataProvider(path);
         students = provider.provide(collectionSize);
+
+        return true;
     }
 
     protected void fillRandom() {
