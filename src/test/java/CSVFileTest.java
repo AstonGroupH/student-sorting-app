@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 
 public class CSVFileTest {
     @Test
@@ -20,7 +18,7 @@ public class CSVFileTest {
         
         String name = "test.csv";
         CSVFile file = new CSVFile(name);
-        file.writeToFle(students);
+        file.writeToFile(students);
 
         CustomArrayList<Student> readStudents = new CustomArrayList<>();
         file.readFromFile(readStudents);
