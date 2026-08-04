@@ -4,7 +4,7 @@ import org.astongrouph.DataProvider.FileDataProvider;
 import org.astongrouph.DataProvider.ManualDataProvider;
 import org.astongrouph.DataProvider.RandomDataProvider;
 
-import java.io.File;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -27,7 +27,9 @@ class FillCollectionHandler extends OperationHandler {
         if (choice == 2) fillRandom();
         if (choice == 3) fillManual();
 
-        System.out.println("Коллекция заполнена");
+        if (students != null && !students.isEmpty()) {
+            System.out.println("Коллекция заполнена");
+        }
     }
 
     protected boolean fillFromFile() {
@@ -44,7 +46,6 @@ class FillCollectionHandler extends OperationHandler {
             return false;
         }
 
-        Path path = Paths.get(name);
         FileDataProvider provider = new FileDataProvider(path);
         students = provider.provide(collectionSize);
 
