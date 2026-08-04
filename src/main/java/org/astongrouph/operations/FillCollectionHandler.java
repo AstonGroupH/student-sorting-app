@@ -4,7 +4,7 @@ import org.astongrouph.DataProvider.FileDataProvider;
 import org.astongrouph.DataProvider.ManualDataProvider;
 import org.astongrouph.DataProvider.RandomDataProvider;
 
-import java.nio.file.Files;
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -27,9 +27,7 @@ class FillCollectionHandler extends OperationHandler {
         if (choice == 2) fillRandom();
         if (choice == 3) fillManual();
 
-        if (students != null && !students.isEmpty()) {
-            System.out.println("Коллекция заполнена");
-        }
+        System.out.println("Коллекция заполнена");
     }
 
     protected void fillFromFile() {
@@ -40,14 +38,13 @@ class FillCollectionHandler extends OperationHandler {
             name = "example.csv";
         }
 
-        Path path = Paths.get("StudentsData", name);
-
-        if(!Files.exists(path)) {
-            System.out.println("Файл не найден: " + path.toAbsolutePath());
+        File file = new File(name);
+        if(!file.exists()) {
+            System.out.println("Файл не найден: " + file.getAbsolutePath());
             return;
         }
 
-
+        Path path = Paths.get(name);
         FileDataProvider provider = new FileDataProvider(path);
         students = provider.provide(collectionSize);
     }
