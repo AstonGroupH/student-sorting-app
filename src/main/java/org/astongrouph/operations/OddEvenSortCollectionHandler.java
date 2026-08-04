@@ -1,12 +1,14 @@
 package org.astongrouph.operations;
 
+import org.astongrouph.comparator.AverageScoreComparator;
 import org.astongrouph.comparator.GroupNumberComparator;
 import org.astongrouph.comparator.RecordBookNumberComparator;
 import org.astongrouph.model.Student;
-import org.astongrouph.strategy.OddEvenSortDecorator;
-import org.astongrouph.strategy.QuickSort;
-import org.astongrouph.strategy.SortStrategy;
+import strategy.OddEvenSortDecorator;
+import strategy.QuickSort;
+import strategy.SortStrategy;
 
+import java.awt.*;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.function.Function;

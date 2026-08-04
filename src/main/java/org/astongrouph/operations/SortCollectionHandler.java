@@ -1,8 +1,8 @@
 package org.astongrouph.operations;
 
 import org.astongrouph.model.Student;
-import org.astongrouph.strategy.QuickSort;
-import org.astongrouph.strategy.SortStrategy;
+import strategy.QuickSort;
+import strategy.SortStrategy;
 
 class SortCollectionHandler extends OperationHandler {
     @Override
