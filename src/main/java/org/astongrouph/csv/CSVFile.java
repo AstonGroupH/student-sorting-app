@@ -16,7 +16,7 @@ public class CSVFile {
         this.name = name;
     }
 
-    public void writeToFle(CustomArrayList<Student> data) throws IllegalArgumentException {
+    public void writeToFile(CustomArrayList<Student> data) throws IllegalArgumentException {
         if (data == null || data.isEmpty())
             throw new IllegalArgumentException("writeToFile: collections is null or is empty!");
 
